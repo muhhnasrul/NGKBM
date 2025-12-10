@@ -18,10 +18,10 @@ rm -rf NGKBM/
 mkdir out
 
 mkdir NGKBM/
-mkdir NGKBM/9.1.24-SE
-mkdir NGKBM/9.1.24-NSE
-mkdir NGKBM/10.3.7-SE
-mkdir NGKBM/10.3.7-NSE
+mkdir NGKBM/SE-old
+mkdir NGKBM/NSE-old
+mkdir NGKBM/SE-new
+mkdir NGKBM/NSE-new
 
 # Export shits
 export KBUILD_BUILD_USER=DioP
@@ -75,7 +75,7 @@ fi
 # Build starts here
 if [ -z ${LINKER} ]
 then
-    #Start with 9.1.24-SE
+    #Start with SE-old
     cp firmware/touch_fw_variant/9.1.24/* firmware/
     cp arch/arm64/boot/dts/qcom/SE_NSE/SE/* arch/arm64/boot/dts/qcom/
     Build
@@ -89,41 +89,41 @@ then
     rm -rf out/outputs/${PHONE}/*
 else
     echo "Build succesful"
-    cp out/arch/arm64/boot/Image.gz-dtb NGKBM/9.1.24-SE/Image.gz-dtb
+    cp out/arch/arm64/boot/Image.gz-dtb NGKBM/SE-old/Image.gz-dtb
     
-    #9.1.24-NSE
+    #NSE-old
     cp arch/arm64/boot/dts/qcom/SE_NSE/NSE/* arch/arm64/boot/dts/qcom/
     Build
     if [ $? -ne 0 ]
     then
         echo "Build failed"
-        rm -rf out/outputs/${PHONE}/9.1.24-NSE/*
+        rm -rf out/outputs/${PHONE}/NSE-old/*
     else
         echo "Build succesful"
-        cp out/arch/arm64/boot/Image.gz-dtb NGKBM/9.1.24-NSE/Image.gz-dtb
+        cp out/arch/arm64/boot/Image.gz-dtb NGKBM/NSE-old/Image.gz-dtb
 
-        #10.3.7-SE
+        #SE-new
         cp firmware/touch_fw_variant/10.3.7/* firmware/
         cp arch/arm64/boot/dts/qcom/SE_NSE/SE/* arch/arm64/boot/dts/qcom/
         Build
         if [ $? -ne 0 ]
         then
             echo "Build failed"
-            rm -rf out/outputs/${PHONE}/10.3.7-SE/*
+            rm -rf out/outputs/${PHONE}/SE-new/*
         else
             echo "Build succesful"
-            cp out/arch/arm64/boot/Image.gz-dtb NGKBM/10.3.7-SE/Image.gz-dtb
+            cp out/arch/arm64/boot/Image.gz-dtb NGKBM/SE-new/Image.gz-dtb
 
-            #10.3.7-NSE
+            #NSE-new
             cp arch/arm64/boot/dts/qcom/SE_NSE/NSE/* arch/arm64/boot/dts/qcom/
             Build
             if [ $? -ne 0 ]
             then
                 echo "Build failed"
-                rm -rf out/outputs/${PHONE}/10.3.7-NSE/*
+                rm -rf out/outputs/${PHONE}/NSE-new/*
             else
                 echo "Build succesful"
-                cp out/arch/arm64/boot/Image.gz-dtb NGKBM/10.3.7-NSE/Image.gz-dtb
+                cp out/arch/arm64/boot/Image.gz-dtb NGKBM/NSE-new/Image.gz-dtb
                 
             fi
         fi
